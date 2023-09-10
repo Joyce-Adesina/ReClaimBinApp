@@ -40,7 +40,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception: {ex.Message}"); }
         }
 
-        public async Task<StandardResponse<string>> DeleteManufacturer(int id)
+        public async Task<StandardResponse<string>> DeleteManufacturer(string id)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
 
        
 
-        public async Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerById(int id, bool trackChanges)
+        public async Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerById(string id, bool trackChanges)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
 
-        public async Task<StandardResponse<int>> UpdateManufacturer(int id, ManufacturerRequestDto requestDto)
+        public async Task<StandardResponse<int>> UpdateManufacturer(string id, ManufacturerRequestDto requestDto)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
             }
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
-        private async Task<Manufacturer> GetManufacturerWithId(int id, bool trackChanges)
+        private async Task<Manufacturer> GetManufacturerWithId(string id, bool trackChanges)
         {
             var manufacturer = await _unitOfWork.ManufacturerRepository.GetManufacturerById(id, trackChanges); 
             return manufacturer;

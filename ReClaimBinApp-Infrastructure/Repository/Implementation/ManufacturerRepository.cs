@@ -29,7 +29,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation.Manu
         //    return await FindByCondition(m => m.Email == email, trackChanges).FirstOrDefaultAsync();
         //}
 
-        public async Task<Manufacturer> GetManufacturerById(int id, bool trackChanges)
+        public async Task<Manufacturer> GetManufacturerById(string id, bool trackChanges)
         {
             return await FindByCondition(m => m.Id == id, trackChanges).FirstOrDefaultAsync();
         }

@@ -30,7 +30,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
             return _appDbContext.Set<T>();
 
         }
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = true)
         {
             return !trackChanges ?
                 _appDbContext.Set<T>().Where(expression).AsNoTracking() :

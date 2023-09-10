@@ -36,7 +36,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
         //    return await FindByCondition(r => r.Id == id, trackChanges).FirstOrDefaultAsync();
         //}
 
-        public async Task<IEnumerable<Review>> GetReviewByOrderId(int orderId, bool trackChanges)
+        public async Task<IEnumerable<Review>> GetReviewByOrderId(string orderId, bool trackChanges)
         {
             return await FindByCondition(r => r.OrderId == orderId, trackChanges).ToListAsync();
         }

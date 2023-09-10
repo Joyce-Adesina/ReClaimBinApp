@@ -13,8 +13,8 @@ namespace ReClaimBinApp_Application.Service.Abstraction
     {
         Task<StandardResponse<OrderResponseDto>> CreateOrderAsync(OrderRequestDto orderRequestDto);
         Task<StandardResponse<IEnumerable<OrderResponseDto>>> GetAllOrderAsync();
-        Task<StandardResponse<IEnumerable<OrderResponseDto>>> GetOrderById(int id);
-        Task<StandardResponse<IEnumerable<OrderResponseDto>>> GetOrderBySupplierId(int id, bool trackChanges);
-        Task<StandardResponse<IEnumerable<OrderResponseDto>>> UpdateOrder(int id, OrderRequestDto orderRequest);
+        Task<StandardResponse<OrderResponseDto>> GetOrderById(string id, bool trackChanges);
+        Task<StandardResponse<IEnumerable<OrderResponseDto>>> GetOrderBySupplierId(string id, bool trackChanges);
+        Task<StandardResponse<OrderResponseDto>> UpdateOrder(string id, OrderRequestDto orderRequest);
     }
 }

@@ -14,7 +14,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Abstraction
     public interface ISupplierRepository : IRepository<Supplier>
     {
         void CreateSupplier(Supplier supplier);
-        Task<Supplier> GetSupplierById(int id, bool trackChanges);
+        Task<Supplier> GetSupplierById(string id, bool trackChanges);
         Task<IEnumerable<Supplier>> GetAllSuppliers(bool trackChanges);
         //Task<Supplier> GetSupplierByEmail(string email, bool trackChanges);
         void UpdateSupplier(Supplier supplier);

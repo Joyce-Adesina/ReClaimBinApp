@@ -11,10 +11,10 @@ namespace ReClaimBinApp_Core.Model
     public class Review : BaseEntity
     {
         [ForeignKey(nameof(Order))]
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public string Comment { get; set; }
         [NotNull]
         public int Rating { get; set; }
-        public Order? Order { get; set; }
+        public Order Order { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace ReClaimBinApp.Controllers
 
         // GET api/<SuppliersController>/5
         [HttpGet("getsupplier/id/{id}")]
-        public async Task<IActionResult> GetSupplierById(int id)
+        public async Task<IActionResult> GetSupplierById(string id)
         {
             var result = await _supplierService.GetSupplierById(id, false);
             return Ok(result);
@@ -54,7 +54,7 @@ namespace ReClaimBinApp.Controllers
 
         // PUT api/<SuppliersController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSupplier(int id, [FromBody] SupplierRequestDto requestDto)
+        public async Task<IActionResult> UpdateSupplier(string id, [FromBody] SupplierRequestDto requestDto)
         {
             var result = await _supplierService.UpdateSupplier(id, requestDto);
             return Ok(result);

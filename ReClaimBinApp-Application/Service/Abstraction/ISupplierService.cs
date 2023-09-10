@@ -12,13 +12,11 @@ namespace ReClaimBinApp_Application.Service.Abstraction
 {
     public interface ISupplierService
     {
-       
         Task<StandardResponse<SupplierResponseDto>> CreateSupplier(SupplierRequestDto requestDto);
         Task<StandardResponse<IEnumerable<SupplierResponseDto>>> GetAllSuppliers(bool trackChanges);
-        Task<StandardResponse<SupplierResponseDto>> GetSupplierById(int id, bool trackChanges);
-        Task<StandardResponse<int>> UpdateSupplier(int id, SupplierRequestDto requestDto);
-        Task<StandardResponse<string>> DeleteSupplier(int id);
+        Task<StandardResponse<SupplierResponseDto>> GetSupplierById(string id, bool trackChanges);
+        Task<StandardResponse<int>> UpdateSupplier(string id, SupplierRequestDto requestDto);
+        Task<StandardResponse<string>> DeleteSupplier(string id);
         //Task<StandardResponse<SupplierResponseDto>> GetSupplierByEmail(string email, bool trackChanges);
-
     }
 }

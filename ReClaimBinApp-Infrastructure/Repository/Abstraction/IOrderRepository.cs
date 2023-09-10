@@ -9,8 +9,8 @@ namespace ReClaimBinApp_Infrastructure.Repository.Abstraction
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task<Order> GetOrderById(int id, bool trackChanges);
-        Task<IEnumerable<Order>> GetOrderBySupplierId(int id, bool trackChanges);
+        Task<Order> GetOrderById(string id, bool trackChanges);
+        Task<IEnumerable<Order>> GetOrderBySupplierId(string id, bool trackChanges);
         Task<IEnumerable<Order>> GetAllOrders(bool trackChanges);
         void CreateOrderAsync(Order order);
         void UpdateOrder(Order order);

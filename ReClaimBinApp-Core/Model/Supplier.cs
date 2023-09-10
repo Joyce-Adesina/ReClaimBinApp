@@ -10,13 +10,11 @@ namespace ReClaimBinApp_Core.Model
 {
     public class Supplier : BaseEntity
     {
-       
+        public string Name { get; set; }
+        [StringLength(14)]
         public string AccountNumber { get; set; }
-        
         public string UserId { get; set; }
         public ICollection<Order> Orders { get; set; }
         //public ICollection<Review> Reviews { get; set; }
-
-
     }
 }

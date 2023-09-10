@@ -13,10 +13,10 @@ namespace ReClaimBinApp_Application.Service.Abstraction
     {
         Task<StandardResponse<ManufacturerResponseDto>> CreateManufacturer(ManufacturerRequestDto requestDto);
         Task<StandardResponse<IEnumerable<ManufacturerResponseDto>>> GetAllManufacturers(bool trackChanges);
-        Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerById(int id, bool trackChanges);
+        Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerById(string id, bool trackChanges);
         //Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerByEmail(string email, bool trackChanges);
-        Task<StandardResponse<int>> UpdateManufacturer(int id, ManufacturerRequestDto requestDto);
-        Task<StandardResponse<string>> DeleteManufacturer(int id);
+        Task<StandardResponse<int>> UpdateManufacturer(string id, ManufacturerRequestDto requestDto);
+        Task<StandardResponse<string>> DeleteManufacturer(string id);
 
     }
 }
