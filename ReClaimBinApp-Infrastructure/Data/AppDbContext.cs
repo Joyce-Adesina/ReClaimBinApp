@@ -24,7 +24,5 @@ namespace ReClaimBinApp_Infrastructure.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<User> Users { get; set; }
-
-
     }
 }

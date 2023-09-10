@@ -54,7 +54,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
 
 
         }
-        public async Task<StandardResponse<OrderResponseDto>> GetOrderById(int id)
+        public async Task<StandardResponse<OrderResponseDto>> GetOrderById(string id, bool trackChanges)
         {
             _logger.LogInformation($" Attempting to get id by id {id}");
             var orders = await _unitOfWork.OrderRepository.GetOrderById(id,trackChanges);
@@ -62,7 +62,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
 
             return StandardResponse<OrderResponseDto>.Success("successfully retrieved Order",orderResponseDto, 200);
         }
-        public async Task<StandardResponse<IEnumerable<OrderResponseDto>>> GetOrderBySupplierId(int id ,bool trackChanges)
+        public async Task<StandardResponse<IEnumerable<OrderResponseDto>>> GetOrderBySupplierId(string id ,bool trackChanges)
         {
             _logger.LogInformation($"Attempting to get id by id {id} is {trackChanges}");
             var orders = await _unitOfWork.OrderRepository.GetOrderBySupplierId(id, trackChanges);
@@ -70,19 +70,26 @@ namespace ReClaimBinApp_Application.Service.Implementation
 
             return StandardResponse<IEnumerable<OrderResponseDto>>.Success("successfully retrieved an Order", orderResponseDto, 200);
         }
-        public async Task<StandardResponse<IEnumerable<OrderResponseDto>>> UpdateOrder(int id, OrderRequestDto orderRequest)
+        /// <summary>
+        /// This method updates a single order
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="orderRequest"></param>
+        /// <returns></returns>
+        public async Task<StandardResponse<OrderResponseDto>> UpdateOrder(string id, OrderRequestDto orderRequest)
         {
 
-            var orders = await _unitOfWork.OrderRepository.GetOrderById(order);
+            var orders = await _unitOfWork.OrderRepository.GetOrderById(id, true);
             if (orders == null)
             {
                 _logger.LogError("Order not found in the database. Update Aborting");
-                return StandardResponse<OrderResponseDto>.Failed("Order not found in database", orders, 99);
+                return StandardResponse<OrderResponseDto>.Failed("Order not found in database", 99);
             }
             var order = _mapper.Map<Order>(orderRequest);
             _unitOfWork.OrderRepository.UpdateOrder(order);
             await _unitOfWork.SaveAsync();
-            var order = _mapper.Map<OrderResponseDto>(order);
+            var orderResponse = _mapper.Map<OrderResponseDto>(order);
+            return StandardResponse<OrderResponseDto>.Success("", orderResponse, 0);
         }
 
 

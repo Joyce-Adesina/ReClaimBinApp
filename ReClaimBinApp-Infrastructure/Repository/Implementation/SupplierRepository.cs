@@ -25,7 +25,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
         //{
         //    return await FindByCondition(s => s. == email, false).FirstOrDefaultAsync();
         //}
-        public async Task<Supplier> GetSupplierById(int id, bool trackChanges)
+        public async Task<Supplier> GetSupplierById(string id, bool trackChanges)
         {
             return await FindByCondition(s => s.Id == id, trackChanges).FirstOrDefaultAsync();
         }

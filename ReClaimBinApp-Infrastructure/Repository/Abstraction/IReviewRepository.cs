@@ -11,7 +11,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Abstraction
     {
         void CreateReviewAsync(Review review);
         Task<IEnumerable<Review>> FindAllReview(bool trackChanges);
-        Task<IEnumerable<Review>> GetReviewByOrderId(int orderId, bool trackChanges);
+        Task<IEnumerable<Review>> GetReviewByOrderId(string orderId, bool trackChanges);
         void DeleteReview(Review review);
         void UpdateReview(Review review);
         //Search term will use searching        

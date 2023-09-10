@@ -27,15 +27,15 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
         {
             return await FindAll(false).ToListAsync();
         }
-        public async Task<IEnumerable<Order>> GetOrderBySupplierId(int id, bool trackChanges)
+        public async Task<IEnumerable<Order>> GetOrderBySupplierId(string id, bool trackChanges)
         {
             return await FindByCondition(O => O.SupplierId ==  id, trackChanges).ToListAsync();
         }
         public async Task<IEnumerable<Order>> GetOrderByManufacturerName(string name, bool trackChanges)
         {
-            return await FindByCondition(O => O.ManufacturerToSell == name, trackChanges).ToListAsync();
+            return await FindByCondition(O => O.Manufacturer.Name == name, trackChanges).ToListAsync();
         }
-        public async Task<Order> GetOrderById(int id, bool trackChanges)
+        public async Task<Order> GetOrderById(string id, bool trackChanges)
         {
             return await FindByCondition(O => O.Id == id, trackChanges).FirstOrDefaultAsync();
         }

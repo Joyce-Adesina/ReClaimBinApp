@@ -12,7 +12,7 @@ namespace ReClaimBinApp_Infrastructure.Repository.Abstraction
     {
         void CreateManufacturer(Manufacturer manufacturer);
         Task<IEnumerable<Manufacturer>> GetAllManufacturers(bool trackChanges);
-        Task<Manufacturer> GetManufacturerById(int id, bool trackChanges);
+        Task<Manufacturer> GetManufacturerById(string id, bool trackChanges);
         //Task<Manufacturer> GetManufacturerByEmail(string email, bool trackChanges);
         //Task<Manufacturer> GetManufacturerByEmail(string email, bool trackChanges);
         void UpdateManufacturer(Manufacturer manufacturer);

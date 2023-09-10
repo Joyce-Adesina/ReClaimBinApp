@@ -25,7 +25,7 @@ namespace ReClaimBinApp.Controllers
 
         // GET api/<ManufacturersController>/5
         [HttpGet("getcompany/id/{id}")]
-        public async Task<IActionResult> GetManufacturerById(int id)
+        public async Task<IActionResult> GetManufacturerById(string id)
         {
             var result = await _manufacturerService.GetManufacturerById(id, false);
             return Ok(result);
@@ -49,7 +49,7 @@ namespace ReClaimBinApp.Controllers
         // PUT api/<ManufacturersController>/5
         [HttpPut]
         [Route("update")]
-        public async Task<IActionResult> UpdateManufacturer(int id, [FromBody] ManufacturerRequestDto requestDto)
+        public async Task<IActionResult> UpdateManufacturer(string id, [FromBody] ManufacturerRequestDto requestDto)
         {
             var result = await _manufacturerService.UpdateManufacturer(id, requestDto);
             return Ok(result);
@@ -58,7 +58,7 @@ namespace ReClaimBinApp.Controllers
         // DELETE api/<ManufacturersController>/5
         [HttpDelete]
         [Route("delete/id/{id}")]
-        public async Task<IActionResult> DeleteManufacturer(int id)
+        public async Task<IActionResult> DeleteManufacturer(string id)
         {
             var result = await _manufacturerService.DeleteManufacturer(id);
             return Ok(result);

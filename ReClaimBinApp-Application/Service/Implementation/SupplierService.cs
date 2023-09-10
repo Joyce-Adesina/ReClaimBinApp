@@ -48,7 +48,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
             }
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception: {ex.Message}"); }
         }
-        public async Task<StandardResponse<string>> DeleteSupplier(int id)
+        public async Task<StandardResponse<string>> DeleteSupplier(string id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
 
 
 
-        public async Task<StandardResponse<SupplierResponseDto>> GetSupplierById(int id, bool trackChanges)
+        public async Task<StandardResponse<SupplierResponseDto>> GetSupplierById(string id, bool trackChanges)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
 
-        public async Task<StandardResponse<int>> UpdateSupplier(int id, SupplierRequestDto requestDto)
+        public async Task<StandardResponse<int>> UpdateSupplier(string id, SupplierRequestDto requestDto)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
 
-        private async Task<Supplier> GetSupplierWithId(int id)
+        private async Task<Supplier> GetSupplierWithId(string id)
         {
             var result = await _unitOfWork.SupplierRepository.GetSupplierById(id, false);
             return result;

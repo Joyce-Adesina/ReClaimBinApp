@@ -20,7 +20,7 @@ namespace ReClaimBinApp_Core.Model
         public string Image { get; set; }
 
         [ForeignKey(nameof(Supplier))]
-        public int SupplierId { get; set; }
+        public string SupplierId { get; set; }
         public Supplier Supplier { get; set; }
         [ForeignKey(nameof(Manufacturer))]
         public string ManufacturerId { get; set; }
