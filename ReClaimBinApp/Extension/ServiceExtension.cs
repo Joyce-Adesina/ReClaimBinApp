@@ -17,6 +17,8 @@ namespace ReClaimBinApp.Extension
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IAuthenticationService,AuthenticationService>();
             services.AddScoped<IOrderService,OrderService>();
+            services.AddScoped<IUserService,UserService>();
+
            
         }
 

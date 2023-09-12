@@ -12,8 +12,8 @@ using ReClaimBinApp_Infrastructure.Data;
 namespace ReClaimBinApp_Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230910160702_ChangeIdType")]
-    partial class ChangeIdType
+    [Migration("20230911105738_secondmig")]
+    partial class secondmig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b1a3675-af03-463e-a796-7683089e96e6",
+                            Id = "20faf311-74be-4a1c-b65e-4502522fe004",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c4cf37e8-1609-429f-949b-ca839911909a",
+                            Id = "8cb37d0f-7592-4276-9822-300905a9c1e6",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -284,8 +284,8 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountNumber")
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

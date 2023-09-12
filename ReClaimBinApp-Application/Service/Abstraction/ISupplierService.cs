@@ -13,7 +13,7 @@ namespace ReClaimBinApp_Application.Service.Abstraction
     public interface ISupplierService
     {
         Task<StandardResponse<SupplierResponseDto>> CreateSupplier(SupplierRequestDto requestDto);
-        Task<StandardResponse<IEnumerable<SupplierResponseDto>>> GetAllSuppliers(bool trackChanges);
+     /*   Task<StandardResponse<IEnumerable<SupplierResponseDto>>> GetAllSuppliers(bool trackChanges);*/
         Task<StandardResponse<SupplierResponseDto>> GetSupplierById(string id, bool trackChanges);
         Task<StandardResponse<int>> UpdateSupplier(string id, SupplierRequestDto requestDto);
         Task<StandardResponse<string>> DeleteSupplier(string id);

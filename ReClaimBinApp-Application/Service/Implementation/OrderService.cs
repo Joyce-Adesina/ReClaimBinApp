@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ReClaimBinApp_Application.Service.Abstraction;
 using ReClaimBinApp_Core.Dtos.RequestDto;
 using ReClaimBinApp_Core.Dtos.ResponseDto;
 using ReClaimBinApp_Core.Model;
-using ReClaimBinApp_Infrastructure.Repository.Implementation;
 using ReClaimBinApp_Infrastructure.UnitOfWork.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReClaimBinApp_Application.Service.Implementation
 {

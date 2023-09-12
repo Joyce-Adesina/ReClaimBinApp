@@ -12,8 +12,8 @@ using ReClaimBinApp_Infrastructure.Data;
 namespace ReClaimBinApp_Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230906160926_init-second")]
-    partial class initsecond
+    [Migration("20230911090337_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "259a4053-12e6-4b5c-82ac-ac44bb7258e7",
+                            Id = "ac67d1a0-d637-438d-a914-14e39877798c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "cb7ec323-47ee-48dc-8ae0-0f28940c9127",
+                            Id = "77d1e4b5-27db-4cd6-bb05-7fcaaae47233",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -174,11 +174,9 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
             modelBuilder.Entity("ReClaimBinApp_Core.Model.Manufacturer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -188,6 +186,9 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PricePerKg")
                         .HasColumnType("Money");
@@ -202,33 +203,24 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
             modelBuilder.Entity("ReClaimBinApp_Core.Model.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BookType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPickUp")
                         .HasColumnType("bit");
 
                     b.Property<string>("Location")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ManufacturerToSell")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ManufacturerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
@@ -236,21 +228,21 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .IsRequired()
+                    b.Property<string>("PaperType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
+                    b.Property<string>("SupplierId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("WeightInKg")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManufacturerId");
 
                     b.HasIndex("SupplierId");
 
@@ -259,14 +251,11 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
             modelBuilder.Entity("ReClaimBinApp_Core.Model.Review", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -275,8 +264,8 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -290,19 +279,13 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
             modelBuilder.Entity("ReClaimBinApp_Core.Model.Supplier", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BookType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -310,16 +293,10 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("RegistrationDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Size")
-                        .IsRequired()
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -336,7 +313,6 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -356,11 +332,7 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("ManufacturerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -381,14 +353,10 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfileImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -399,8 +367,6 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManufacturerId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -408,8 +374,6 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -467,11 +431,15 @@ namespace ReClaimBinApp_Infrastructure.Migrations
 
             modelBuilder.Entity("ReClaimBinApp_Core.Model.Order", b =>
                 {
+                    b.HasOne("ReClaimBinApp_Core.Model.Manufacturer", "Manufacturer")
+                        .WithMany("orders")
+                        .HasForeignKey("ManufacturerId");
+
                     b.HasOne("ReClaimBinApp_Core.Model.Supplier", "Supplier")
                         .WithMany("Orders")
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SupplierId");
+
+                    b.Navigation("Manufacturer");
 
                     b.Navigation("Supplier");
                 });
@@ -480,26 +448,14 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                 {
                     b.HasOne("ReClaimBinApp_Core.Model.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("ReClaimBinApp_Core.Model.User", b =>
+            modelBuilder.Entity("ReClaimBinApp_Core.Model.Manufacturer", b =>
                 {
-                    b.HasOne("ReClaimBinApp_Core.Model.Manufacturer", "Manufacturer")
-                        .WithMany()
-                        .HasForeignKey("ManufacturerId");
-
-                    b.HasOne("ReClaimBinApp_Core.Model.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
-
-                    b.Navigation("Manufacturer");
-
-                    b.Navigation("Supplier");
+                    b.Navigation("orders");
                 });
 
             modelBuilder.Entity("ReClaimBinApp_Core.Model.Supplier", b =>

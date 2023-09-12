@@ -51,15 +51,21 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b1a3675-af03-463e-a796-7683089e96e6",
+                            Id = "e5be2d5f-0d81-414f-a614-246cfc421bee",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c4cf37e8-1609-429f-949b-ca839911909a",
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Id = "6dc1116b-a545-4380-9287-caddb8fbb8ce",
+                            Name = "Supplier",
+                            NormalizedName = "SUPPLIER"
+                        },
+                        new
+                        {
+                            Id = "8bfab4a3-9139-49d4-a0f8-a287d9dafc28",
+                            Name = "Manufacturer",
+                            NormalizedName = "MANUFACTURER"
                         });
                 });
 
@@ -281,8 +287,8 @@ namespace ReClaimBinApp_Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccountNumber")
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

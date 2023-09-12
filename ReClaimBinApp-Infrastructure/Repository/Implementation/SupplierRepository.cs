@@ -2,15 +2,16 @@
 using ReClaimBinApp_Core.Model;
 using ReClaimBinApp_Infrastructure.Data;
 using ReClaimBinApp_Infrastructure.Repository.Abstraction;
+using ReClaimBinApp_Shared.RequestParameter.Common;
+using ReClaimBinApp_Shared.RequestParameter.ModelParameter;
 
 namespace ReClaimBinApp_Infrastructure.Repository.Implementation
 {
     public class SupplierRepository : Repository<Supplier>, ISupplierRepository
     {
-        /*  private readonly DbSet<Supplier> suppliers;*/
         public SupplierRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            /*suppliers = appDbContext.Set<Supplier>();*/
+        
         }
         public void CreateSupplier(Supplier supplier)
         {
@@ -20,14 +21,23 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
         {
             return await FindAll(trackChanges).ToListAsync();
         }
+        public async Task<PagedList<Supplier>> GetAllSuppliers(SupplierRequestInputParameter parameter, bool trackChanges)
+        {
+            var suppliers = FindAll(trackChanges); // Assuming FindAll returns an IQueryable
 
-        //public async Task<Supplier> GetSupplierByEmail(string email, bool trackChanges)
-        //{
-        //    return await FindByCondition(s => s. == email, false).FirstOrDefaultAsync();
-        //}
+            var pagedSuppliers = await suppliers
+                .Skip((parameter.PageNumber - 1) * parameter.PageSize)
+                .Take(parameter.PageSize)
+                .ToListAsync();
+
+            var totalCount = await suppliers.CountAsync();
+
+            return new PagedList<Supplier>(pagedSuppliers, totalCount, parameter.PageNumber, parameter.PageSize);
+        }
         public async Task<Supplier> GetSupplierById(string id, bool trackChanges)
         {
-            return await FindByCondition(s => s.Id == id, trackChanges).FirstOrDefaultAsync();
+            var result = await FindByCondition(s => s.Id == id, trackChanges).FirstOrDefaultAsync();
+            return result;
         }
         public void UpdateSupplier(Supplier supplier)
         {

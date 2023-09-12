@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReClaimBinApp_Application.Service.Abstraction;
 using ReClaimBinApp_Core.Dtos.RequestDto;
+using ReClaimBinApp_Shared.RequestParameter.ModelParameter;
+using System.Text.Json;
 
 namespace ReClaimBinApp.Controllers
 {
@@ -17,20 +19,21 @@ namespace ReClaimBinApp.Controllers
 
         [HttpGet]
         [Route("manufacturer")]
-        public async Task<IActionResult> GetAllManufacturers()
+        public async Task<IActionResult> GetAllManufacturers([FromQuery]ManufacturerRequestInputParameter parameter)
         {
-            var resullt = await _manufacturerService.GetAllManufacturers(false);
-            return Ok(resullt);
+            var resullt = await _manufacturerService.GetAllManufacturers(parameter, false);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(resullt.Data.Item2));
+            return Ok(resullt.Data.Item1);
         }
 
         // GET api/<ManufacturersController>/5
-        [HttpGet("getcompany/id/{id}")]
+        [HttpGet("getManufacturer/id/{id}")]
         public async Task<IActionResult> GetManufacturerById(string id)
         {
             var result = await _manufacturerService.GetManufacturerById(id, false);
             return Ok(result);
         }
-        [HttpGet("getcompany/email/{email}")]
+        [HttpGet("getManufacturer/email/{email}")]
         //public async Task<IActionResult> GetManufacturerByEmail(string email)
         //{
         //    var result = await _manufacturerService.GetManufacturerByEmail(email, false);
@@ -39,7 +42,7 @@ namespace ReClaimBinApp.Controllers
 
         // POST api/<ManufacturersController>
         [HttpPost]
-        [Route("create")]
+        [Route("createManufacturer")]
         public async Task<IActionResult> CreateManufacturer([FromBody] ManufacturerRequestDto requestDto)
         {
             var result = await _manufacturerService.CreateManufacturer(requestDto);
@@ -48,7 +51,7 @@ namespace ReClaimBinApp.Controllers
 
         // PUT api/<ManufacturersController>/5
         [HttpPut]
-        [Route("update")]
+        [Route("Updatemanufacturer{id}")]
         public async Task<IActionResult> UpdateManufacturer(string id, [FromBody] ManufacturerRequestDto requestDto)
         {
             var result = await _manufacturerService.UpdateManufacturer(id, requestDto);
@@ -57,7 +60,7 @@ namespace ReClaimBinApp.Controllers
 
         // DELETE api/<ManufacturersController>/5
         [HttpDelete]
-        [Route("delete/id/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteManufacturer(string id)
         {
             var result = await _manufacturerService.DeleteManufacturer(id);

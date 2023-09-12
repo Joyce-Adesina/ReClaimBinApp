@@ -6,6 +6,8 @@ using ReClaimBinApp_Core.Dtos.RequestDto;
 using ReClaimBinApp_Core.Dtos.ResponseDto;
 using ReClaimBinApp_Core.Model;
 using ReClaimBinApp_Infrastructure.UnitOfWork.Abstraction;
+using ReClaimBinApp_Shared.RequestParameter.Common;
+using ReClaimBinApp_Shared.RequestParameter.ModelParameter;
 
 namespace ReClaimBinApp_Application.Service.Implementation
 {
@@ -14,6 +16,7 @@ namespace ReClaimBinApp_Application.Service.Implementation
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<SupplierService> _logger;
+
 
         public ManufacturerService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<SupplierService> logger)
         {
@@ -57,21 +60,23 @@ namespace ReClaimBinApp_Application.Service.Implementation
             }
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
-
-        public async Task<StandardResponse<IEnumerable<ManufacturerResponseDto>>> GetAllManufacturers(bool trackChanges)
+        public async Task<StandardResponse<(IEnumerable<ManufacturerResponseDto>, MetaData)>> GetAllManufacturers(ManufacturerRequestInputParameter parameter, bool trackChanges)
         {
             try
             {
-                _logger.LogInformation($"Attempting to get all manufacturer");
-
-                var manufactures = await _unitOfWork.ManufacturerRepository.GetAllManufacturers(trackChanges);
-                var manufactureDtos = _mapper.Map<IEnumerable<ManufacturerResponseDto>>(manufactures);
-                return StandardResponse<IEnumerable<ManufacturerResponseDto>>.Success("Successful", manufactureDtos, 200);
+                var manufacturer = await _unitOfWork.ManufacturerRepository.GetAllManufacturers(parameter, trackChanges);
+                var manufacturerDtos = _mapper.Map<IEnumerable<ManufacturerResponseDto>>(manufacturer);
+                return StandardResponse<(IEnumerable<ManufacturerResponseDto> _contact, MetaData pagingData)>.Success("Successfully retrieved all Manufacturer", (manufacturerDtos, manufacturer.MetaData), 200);
             }
-            catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while getting all manufacturer.");
+                return StandardResponse<(IEnumerable<ManufacturerResponseDto>, MetaData)>.Failed("An error occurred while getting all manufacturer.", 406);
+            }
         }
 
-       
+
+
 
         public async Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerById(string id, bool trackChanges)
         {
@@ -105,19 +110,8 @@ namespace ReClaimBinApp_Application.Service.Implementation
         }
         private async Task<Manufacturer> GetManufacturerWithId(string id, bool trackChanges)
         {
-            var manufacturer = await _unitOfWork.ManufacturerRepository.GetManufacturerById(id, trackChanges); 
+            var manufacturer = await _unitOfWork.ManufacturerRepository.GetManufacturerById(id, trackChanges);
             return manufacturer;
         }
-        //public async Task<StandardResponse<ManufacturerResponseDto>> GetManufacturerByEmail(string email, bool trackChanges)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Attempting to get email with email{email}");
-        //        var manufacturer = await _unitOfWork.ManufacturerRepository.GetManufacturerByEmail(email, trackChanges);
-        //        var manufactureDto = _mapper.Map<ManufacturerResponseDto>(manufacturer);
-        //        return StandardResponse<ManufacturerResponseDto>.Success("Successful", manufactureDto, 200);
-        //    }
-        //    catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
-        //}
     }
 }

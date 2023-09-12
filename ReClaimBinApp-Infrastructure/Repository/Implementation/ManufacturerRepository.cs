@@ -2,6 +2,8 @@
 using ReClaimBinApp_Core.Model;
 using ReClaimBinApp_Infrastructure.Data;
 using ReClaimBinApp_Infrastructure.Repository.Abstraction;
+using ReClaimBinApp_Shared.RequestParameter.Common;
+using ReClaimBinApp_Shared.RequestParameter.ModelParameter;
 
 namespace ReClaimBinApp_Infrastructure.Repository.Implementation.Manu
 {
@@ -14,20 +16,21 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation.Manu
         {
             Create(manufacturer);
         }
-        public async Task<IEnumerable<Manufacturer>> GetAllManufacturers(bool trackChanges)
+        public async Task<PagedList<Manufacturer>> GetAllManufacturers(ManufacturerRequestInputParameter parameter, bool trackChanges)
         {
-            return await FindAll(trackChanges).ToListAsync();
-        }
-        //public async Task <IEnumerable<Manufacturer>> GetAllSuppliersBySaleRequest(DateTime)
-        //{
-        //    return await FindByCondition(m => m.)
-        //}
-        
+            var manufacturers = FindAll(trackChanges); // Assuming FindAll returns an IQueryable
 
-        //public async Task<Manufacturer> GetManufacturerByEmail(string email, bool trackChanges)
-        //{
-        //    return await FindByCondition(m => m.Email == email, trackChanges).FirstOrDefaultAsync();
-        //}
+            var pagedManufacturers = await manufacturers
+                .Skip((parameter.PageNumber - 1) * parameter.PageSize)
+                .Take(parameter.PageSize)
+                .ToListAsync();
+
+            var totalCount = await manufacturers.CountAsync();
+
+            return new PagedList<Manufacturer>(pagedManufacturers, totalCount, parameter.PageNumber, parameter.PageSize);
+        }
+
+
 
         public async Task<Manufacturer> GetManufacturerById(string id, bool trackChanges)
         {
@@ -37,12 +40,9 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation.Manu
         {
             Update(manufacturer);
         }
-
         public void DeleteManufacturer(Manufacturer manufacturer)
         {
             Delete(manufacturer);
         }
-
-
     }
 }

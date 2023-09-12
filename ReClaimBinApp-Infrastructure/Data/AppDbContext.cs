@@ -11,14 +11,11 @@ namespace ReClaimBinApp_Infrastructure.Data
         {
            
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
-
-
         public DbSet<Manufacturer> manufacturers { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
         public DbSet<Order> Orders { get; set; }

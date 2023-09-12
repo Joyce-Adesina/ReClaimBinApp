@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReClaimBinApp_Core.Dtos.ResponseDto
 {
-        public class StandardResponse<T>
+    public class StandardResponse<T>
         {
             public T Data { get; set; }
             public bool Succeeded { get; set; }

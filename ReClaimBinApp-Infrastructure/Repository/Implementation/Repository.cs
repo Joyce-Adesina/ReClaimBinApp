@@ -20,7 +20,6 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
             _appDbContext.SaveChanges();
 
         }
-
         public IQueryable<T> FindAll(bool trackChanges)
         {
             if (!trackChanges)
@@ -36,13 +35,11 @@ namespace ReClaimBinApp_Infrastructure.Repository.Implementation
                 _appDbContext.Set<T>().Where(expression).AsNoTracking() :
                 _appDbContext.Set<T>().Where(expression);
         }
-
         public void Update(T entity)
         {
             _appDbContext.Set<T>().Update(entity);
             _appDbContext.SaveChanges();
         }
-
         public void Delete(T entity)
         {
             _appDbContext.Set<T>().Remove(entity);

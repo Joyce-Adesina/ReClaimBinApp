@@ -11,4 +11,4 @@ namespace ReClaimBinApp_Core.Model
         public string UserId { get; set; }
         public ICollection<Order> orders { get; set; }
     }
-}     
+}

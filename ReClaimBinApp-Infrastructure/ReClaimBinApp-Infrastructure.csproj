@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ReClaimBinApp-Core\ReClaimBinApp-Domain.csproj" />
+    <ProjectReference Include="..\ReClaimBinApp-Shared\ReClaimBinApp-Shared.csproj" />
   </ItemGroup>
 
 </Project>

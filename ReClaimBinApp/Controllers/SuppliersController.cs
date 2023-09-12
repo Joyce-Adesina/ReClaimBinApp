@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReClaimBinApp_Application.Service.Abstraction;
-using ReClaimBinApp_Application.Service.Implementation;
-using ReClaimBinApp_Core.Dtos.RequestDto;
 using ReClaimBinApp_Core.Dtos.SupplierRequestDto;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,7 +27,7 @@ namespace ReClaimBinApp.Controllers
         }
 
         // GET api/<SuppliersController>/5
-        [HttpGet("getsupplier/id/{id}")]
+        [HttpGet("getsupplier/id")]
         public async Task<IActionResult> GetSupplierById(string id)
         {
             var result = await _supplierService.GetSupplierById(id, false);

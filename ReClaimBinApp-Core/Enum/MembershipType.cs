@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReClaimBinApp_Core.Enum
+﻿namespace ReClaimBinApp_Core.Enum
 {
     public enum MembershipType
     {
-        Supplier,
-        Manufacturer
+        Supplier=1,
+        Manufacturer,
     }
 }

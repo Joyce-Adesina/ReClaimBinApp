@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
 using Azure;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 using ReClaimBinApp_Application.Service.Abstraction;
-using ReClaimBinApp_Core.Dtos.RequestDto;
 using ReClaimBinApp_Core.Dtos.ResponseDto;
 using ReClaimBinApp_Core.Dtos.SupplierRequestDto;
 using ReClaimBinApp_Core.Model;
 using ReClaimBinApp_Infrastructure.UnitOfWork.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReClaimBinApp_Application.Service.Implementation
 {
@@ -28,9 +21,6 @@ namespace ReClaimBinApp_Application.Service.Implementation
             _mapper = mapper;
             _logger = logger;
         }
-
-
-
         public async Task<StandardResponse<SupplierResponseDto>> CreateSupplier(SupplierRequestDto requestDto)
         {
             try
@@ -65,22 +55,21 @@ namespace ReClaimBinApp_Application.Service.Implementation
             }
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
-
-
-        public async Task<StandardResponse<IEnumerable<SupplierResponseDto>>> GetAllSuppliers(bool trackChanges)
+/*        public async Task<StandardResponse<IEnumerable<SupplierResponseDto>>> GetAllSuppliers( bool trackChanges)
         {
             try
             {
-                _logger.LogInformation($"Attempting to get all Supplier");
-                var suppliers = await _unitOfWork.SupplierRepository.GetAllSuppliers(trackChanges);
+               *//* _logger.LogInformation($"Attempting to get all Supplier");
+                var suppliers = await _unitOfWork.SupplierRepository.GetAllSuppliers(parameter ,trackChanges);
                 var supplierDtos = _mapper.Map<IEnumerable<SupplierResponseDto>>(suppliers);
-                return StandardResponse<IEnumerable<SupplierResponseDto>>.Success("Successful", supplierDtos, 200);
+                return StandardResponse<IEnumerable<SupplierResponseDto  MetaData  pagingData)>.Success("Successfully retrieved all Supplier", (supplierDtos ,supplier.MetaData, 200);*//*
             }
-            catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
-        }
-
-
-
+            catch (Exception ex)
+            
+            {
+                throw new RequestFailedException($"Request failed exception:{ex.Message}"); 
+            }
+        }*/
         public async Task<StandardResponse<SupplierResponseDto>> GetSupplierById(string id, bool trackChanges)
         {
             try
@@ -92,7 +81,6 @@ namespace ReClaimBinApp_Application.Service.Implementation
             }
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
-
         public async Task<StandardResponse<int>> UpdateSupplier(string id, SupplierRequestDto requestDto)
         {
             try
@@ -104,7 +92,6 @@ namespace ReClaimBinApp_Application.Service.Implementation
                     _logger.LogInformation($"Supplier {id} not found in the database");
                     return StandardResponse<int>.Failed($"Supplier {id} not found in the database", 406);
                 }
-
                 var supplier = _mapper.Map<Supplier>(requestDto);
                 _unitOfWork.SupplierRepository.UpdateSupplier(supplier);
                 await _unitOfWork.SaveAsync();
@@ -112,23 +99,10 @@ namespace ReClaimBinApp_Application.Service.Implementation
             }
             catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
         }
-
         private async Task<Supplier> GetSupplierWithId(string id)
         {
             var result = await _unitOfWork.SupplierRepository.GetSupplierById(id, false);
             return result;
         }
-        //public async Task<StandardResponse<SupplierResponseDto>> GetSupplierByEmail(string email, bool trackChanges)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Attempting to get email with email{email}");
-        //        var suppliers = await _unitOfWork.SupplierRepository.GetSupplierByEmail( email, trackChanges);
-        //        var suppliersDto = _mapper.Map<SupplierResponseDto>(suppliers);
-        //        return StandardResponse<SupplierResponseDto>.Success("Successful", suppliersDto, 200);
-        //    }
-        //    catch (Exception ex) { throw new RequestFailedException($"Request failed exception:{ex.Message}"); }
-        //}
     }
-
 }

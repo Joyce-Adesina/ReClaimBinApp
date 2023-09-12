@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using ReClaimBinApp_Core.Enum;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReClaimBinApp_Core.Model
 {
@@ -26,5 +19,4 @@ namespace ReClaimBinApp_Core.Model
         public string ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
     }
-}       
-                            
+}                                  
